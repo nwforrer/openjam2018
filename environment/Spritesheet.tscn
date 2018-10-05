@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://environment/spritesheet_tiles.png" type="Texture" id=1]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="spritesheet" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 64, 64 )
+_sections_unfolded = [ "Region" ]
+
+[node name="spritesheet2" type="Sprite" parent="." index="1"]
+
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 296, 0, 64, 64 )
+_sections_unfolded = [ "Region" ]
+
+[node name="spritesheet3" type="Sprite" parent="." index="2"]
+
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 592, 0, 64, 64 )
+_sections_unfolded = [ "Region" ]
+
+

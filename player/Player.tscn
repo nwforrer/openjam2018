@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://player/Player.gd" type="Script" id=1]
+[ext_resource path="res://player/images/manBlue_gun.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 12.9856, 20.7127 )
+
+[node name="Player" type="KinematicBody2D" index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 0
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
+speed = 200
+fire_delay = 0.1
+
+[node name="sprite" type="Sprite" parent="." index="0"]
+
+position = Vector2( 9.12846, 0.104721 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+position = Vector2( 0.858566, -0.214634 )
+shape = SubResource( 1 )
+
+[node name="gun_position" type="Position2D" parent="." index="2"]
+
+position = Vector2( 29.5454, 9.09088 )
+
+[node name="fire_timer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 0.5
+one_shot = false
+autostart = false
+
+[connection signal="timeout" from="fire_timer" to="." method="_on_fire_timer_timeout"]
+
+
