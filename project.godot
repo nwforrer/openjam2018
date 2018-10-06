@@ -11,7 +11,7 @@ config_version=3
 [application]
 
 config/name="openjam2018"
-run/main_scene="res://Map.tscn"
+run/main_scene="res://Game.tscn"
 config/icon="res://icon.png"
 
 [input]
@@ -29,7 +29,7 @@ primary_action=[ Object(InputEventMouseButton,"resource_local_to_scene":false,"r
 
 2d_physics/layer_1="player"
 2d_physics/layer_2="envelope"
-2d_physics/layer_3="citizenn"
+2d_physics/layer_3="citizen"
 
 [rendering]
 

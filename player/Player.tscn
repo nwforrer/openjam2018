@@ -8,7 +8,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 12.9856, 20.7127 )
 
-[node name="Player" type="KinematicBody2D" index="0"]
+[node name="Player" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 1
@@ -32,15 +32,13 @@ shape = SubResource( 1 )
 
 [node name="gun_position" type="Position2D" parent="." index="2"]
 
-position = Vector2( 29.5454, 9.09088 )
+position = Vector2( 41.4335, 9.26571 )
 
 [node name="fire_timer" type="Timer" parent="." index="3"]
 
 process_mode = 1
-wait_time = 0.5
-one_shot = false
-autostart = false
-
-[connection signal="timeout" from="fire_timer" to="." method="_on_fire_timer_timeout"]
+wait_time = 0.2
+one_shot = true
+autostart = true
 
 
