@@ -9,3 +9,5 @@ func _ready():
 func _physics_process(delta):
 	if target:
 		position = target.position - target_offset
+	else:
+		print('NO TARGET FOR CAMERA')
