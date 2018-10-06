@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://environment/TileSet.tres" type="TileSet" id=2]
@@ -7,7 +7,12 @@
 [ext_resource path="res://Camera.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Shop.tscn" type="PackedScene" id=6]
 
-[node name="Game" type="Node" index="0"]
+[sub_resource type="CircleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 163.617
+
+[node name="Game" type="Node"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Pause" ]
@@ -33,32 +38,105 @@ format = 1
 tile_data = PoolIntArray( 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 12, 1, 0, 13, 1, 0, 14, 1, 0, 15, 1, 0, 65536, 1, 0, 65537, 1, 0, 65538, 1, 0, 65539, 1, 0, 65540, 1, 0, 65541, 1, 0, 65542, 1, 0, 65543, 1, 0, 65544, 1, 0, 65545, 1, 0, 65546, 1, 0, 65547, 1, 0, 65548, 1, 0, 65549, 1, 0, 65550, 1, 0, 65551, 1, 0, 131072, 1, 0, 131073, 1, 0, 131074, 1, 0, 131075, 1, 0, 131076, 1, 0, 131077, 1, 0, 131078, 1, 0, 131079, 1, 0, 131080, 1, 0, 131081, 1, 0, 131082, 1, 0, 131083, 1, 0, 131084, 1, 0, 131085, 1, 0, 131086, 1, 0, 131087, 1, 0, 196608, 1, 0, 196609, 1, 0, 196610, 1, 0, 196611, 1, 0, 196612, 1, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 1, 0, 196618, 1, 0, 196619, 1, 0, 196620, 1, 0, 196621, 1, 0, 196622, 1, 0, 196623, 1, 0, 262144, 1, 0, 262145, 1, 0, 262146, 1, 0, 262147, 1, 0, 262148, 1, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 1, 0, 262154, 1, 0, 262155, 1, 0, 262156, 1, 0, 262157, 1, 0, 262158, 1, 0, 262159, 1, 0, 327680, 1, 0, 327681, 1, 0, 327682, 1, 0, 327683, 1, 0, 327684, 1, 0, 327685, 1, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 327690, 0, 0, 327691, 1, 0, 327692, 1, 0, 327693, 1, 0, 327694, 1, 0, 327695, 1, 0, 393216, 1, 0, 393217, 1, 0, 393218, 1, 0, 393219, 1, 0, 393220, 1, 0, 393221, 1, 0, 393222, 1, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 1, 0, 393227, 1, 0, 393228, 1, 0, 393229, 1, 0, 393230, 1, 0, 393231, 1, 0, 458752, 1, 0, 458753, 1, 0, 458754, 1, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 1, 0, 458759, 1, 0, 458760, 1, 0, 458761, 1, 0, 458762, 1, 0, 458763, 1, 0, 458764, 1, 0, 458765, 1, 0, 458766, 1, 0, 458767, 1, 0, 524288, 1, 0, 524289, 1, 0, 524290, 1, 0, 524291, 1, 0, 524292, 1, 0, 524293, 1, 0, 524294, 1, 0, 524295, 1, 0, 524296, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 524301, 1, 0, 524302, 1, 0, 524303, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589828, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589839, 1, 0 )
 _sections_unfolded = [ "Cell", "Z Index" ]
 
-[node name="Entities" type="Node2D" parent="." index="1"]
-
-_sections_unfolded = [ "Pause" ]
-
-[node name="Player" parent="Entities" index="0" instance=ExtResource( 3 )]
+[node name="Player" parent="." index="1" instance=ExtResource( 3 )]
 
 position = Vector2( 465.474, 285.026 )
 
-[node name="Citizen" parent="Entities" index="1" instance=ExtResource( 4 )]
+[node name="CitizenArea" type="Area2D" parent="." index="2"]
 
-position = Vector2( 205.055, 203.004 )
+position = Vector2( 175.942, 126.551 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+__meta__ = {
+"_edit_group_": true
+}
 
-[node name="Citizen2" parent="Entities" index="2" instance=ExtResource( 4 )]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CitizenArea" index="0"]
 
-position = Vector2( 300.345, 458.96 )
+shape = SubResource( 1 )
 
-[node name="Citizen3" parent="Entities" index="3" instance=ExtResource( 4 )]
+[node name="Citizen" parent="CitizenArea" index="1" instance=ExtResource( 4 )]
 
-position = Vector2( 787.88, 516.577 )
+position = Vector2( 29.1128, 76.4526 )
+player_path = NodePath("../../Player")
 
-[node name="Citizen4" parent="Entities" index="4" instance=ExtResource( 4 )]
+[node name="CitizenArea2" type="Area2D" parent="." index="3"]
 
-position = Vector2( 764.611, 104.389 )
+position = Vector2( 785.389, 103.425 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+__meta__ = {
+"_edit_group_": true
+}
 
-[node name="Camera" parent="." index="2" instance=ExtResource( 5 )]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CitizenArea2" index="0"]
 
+shape = SubResource( 1 )
+
+[node name="Citizen2" parent="CitizenArea2" index="1" instance=ExtResource( 4 )]
+
+position = Vector2( -20.7778, 0.964005 )
+player_path = NodePath("../../Player")
+
+[node name="CitizenArea3" type="Area2D" parent="." index="4"]
+
+position = Vector2( 839.804, 481.609 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CitizenArea3" index="0"]
+
+shape = SubResource( 1 )
+
+[node name="Citizen3" parent="CitizenArea3" index="1" instance=ExtResource( 4 )]
+
+position = Vector2( -51.9241, 34.9684 )
+player_path = NodePath("../../Player")
+
+[node name="CitizenArea4" type="Area2D" parent="." index="5"]
+
+position = Vector2( 269.807, 487.051 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CitizenArea4" index="0"]
+
+shape = SubResource( 1 )
+
+[node name="Citizen4" parent="CitizenArea4" index="1" instance=ExtResource( 4 )]
+
+position = Vector2( 30.538, -28.0909 )
+player_path = NodePath("../../Player")
+
+[node name="Camera" parent="." index="6" instance=ExtResource( 5 )]
+
+position = Vector2( 0, 0.814499 )
 anchor_mode = 0
 current = true
 _sections_unfolded = [ "Pause", "Smoothing" ]
@@ -159,21 +237,21 @@ pause_mode = 2
 visible = false
 _sections_unfolded = [ "Pause" ]
 
-[node name="awareness_timer" type="Timer" parent="." index="3"]
+[node name="awareness_timer" type="Timer" parent="." index="7"]
 
 process_mode = 1
 wait_time = 5.0
 one_shot = true
 autostart = true
 
-[node name="alert_timer" type="Timer" parent="." index="4"]
+[node name="alert_timer" type="Timer" parent="." index="8"]
 
 process_mode = 1
 wait_time = 5.0
 one_shot = false
 autostart = false
 
-[connection signal="spawn_envelope" from="Entities/Player" to="." method="_on_Player_spawn_envelope"]
+[connection signal="spawn_envelope" from="Player" to="." method="_on_Player_spawn_envelope"]
 
 [connection signal="bought_powerup" from="Camera/Shop" to="." method="_on_Shop_bought_powerup"]
 

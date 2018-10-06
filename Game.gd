@@ -32,7 +32,9 @@ func set_awareness(new_aware):
 	update_awareness()
 
 func _ready():
-	$Camera.target = $Entities/Player
+	randomize()
+	
+	$Camera.target = $Player
 	envelope_scene = preload("res://player/Envelope.tscn")
 	
 	money_label = find_node("MoneyLabel")
@@ -50,17 +52,20 @@ func update_money():
 	
 func update_awareness():
 	if awareness_label:
-		var awareness_level
-		if awareness == 0:
-			awareness_level = 'None'
-		elif awareness > 0 and awareness <= 10:
-			awareness_level = 'Low'
-		elif awareness <= 20:
-			awareness_level = 'Medium'
-		else:
-			awareness_level = 'High'
-			
+		var awareness_level = get_awareness_bucket()
 		awareness_label.text = awareness_label_format % awareness_level
+
+func get_awareness_bucket():
+	var awareness_level
+	if awareness == 0:
+		awareness_level = 'None'
+	elif awareness > 0 and awareness <= Constants.LOW_AWARENESS_LEVEL:
+		awareness_level = 'Low'
+	elif awareness <= Constants.MEDIUM_AWARENESS_LEVEL:
+		awareness_level = 'Medium'
+	else:
+		awareness_level = 'High'
+	return awareness_level
 
 func open_shop():
 	$Camera/Shop.open(money)
@@ -73,7 +78,7 @@ func _on_Player_spawn_envelope(pos, rot):
 	envelope.position = pos
 	envelope.rotation = rot
 	envelope.connect('envelope_collision', self, '_on_Envelope_collision')
-	$Entities.add_child(envelope)
+	add_child(envelope)
 	
 func _on_Envelope_collision(env, collider):
 	collider.awareness -= 1

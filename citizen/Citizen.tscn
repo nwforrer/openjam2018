@@ -8,7 +8,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 12.4734, 21.4991 )
 
-[node name="Citizen" type="KinematicBody2D"]
+[node name="Citizen" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 4
@@ -17,6 +17,8 @@ collision/safe_margin = 0.08
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision" ]
 money_held = 10
+flee_distance = 200
+player_path = null
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
@@ -34,16 +36,36 @@ wait_time = 1.0
 one_shot = true
 autostart = false
 
-[node name="ProgressBar" type="ProgressBar" parent="." index="3"]
+[node name="Overhead" type="Control" parent="." index="3"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -31.0
+margin_top = -46.0
+margin_right = 29.0
+margin_bottom = -6.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ProgressBar" type="ProgressBar" parent="Overhead" index="0"]
 
 anchor_left = 0.5
 anchor_top = 0.0
 anchor_right = 0.5
 anchor_bottom = 0.0
-margin_left = -65.0
-margin_top = -44.0
-margin_right = -1.0
-margin_bottom = -28.0
+margin_left = -31.0
+margin_top = 4.0
+margin_right = 33.0
+margin_bottom = 20.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -59,6 +81,26 @@ exp_edit = false
 rounded = false
 percent_visible = false
 _sections_unfolded = [ "Percent" ]
+
+[node name="StateLabel" type="Label" parent="Overhead" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1.0
+margin_top = -15.0
+margin_right = 41.0
+margin_bottom = -1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [connection signal="timeout" from="change_state_timer" to="." method="_on_change_state_timer_timeout"]
 
