@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://spam_filter/SpamFilter.gd" type="Script" id=1]
+[ext_resource path="res://spam_filter/robot1_machine.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 14.2087, 21.6168 )
+
+[node name="SpamFilter" type="KinematicBody2D"]
+
+input_pickable = false
+collision_layer = 8
+collision_mask = 7
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
+target_node_path = null
+target_distance = 200
+orbit_speed = 1.5708
+speed = 300
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+position = Vector2( -8.08835, -0.323532 )
+shape = SubResource( 1 )
+
+[node name="muzzle_location" type="Position2D" parent="." index="2"]
+
+position = Vector2( 26.2062, 9.05894 )
+
+[node name="shoot_timer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[connection signal="timeout" from="shoot_timer" to="." method="_on_shoot_timer_timeout"]
+
+

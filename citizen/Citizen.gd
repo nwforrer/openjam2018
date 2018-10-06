@@ -48,9 +48,7 @@ func _process(delta):
 					set_walk_direction(direction)
 		FLEEING:
 			if player:
-				if (player.global_position - global_position).length() > flee_distance:
-					change_state(RETURNING)
-				else:
+				if (player.global_position - global_position).length() < flee_distance:
 					var direction = -(player.global_position - global_position)
 					set_walk_direction(direction)
 		RETURNING:
@@ -80,6 +78,8 @@ func change_state(new_state):
 	if show_states:
 		$Overhead/StateLabel.text = state_display_string(new_state)
 	state = new_state
+	var change_state_wait_time = randi()%5+1
+	
 	match new_state:
 		WALKING:
 			var direction = Vector2(randf()*2-1, randf()*2-1)
@@ -87,6 +87,7 @@ func change_state(new_state):
 		IDLE:
 			velocity = Vector2()
 		FLEEING:
+			change_state_wait_time = 1
 			if player:
 				var direction = -(player.global_position - global_position)
 				set_walk_direction(direction)
@@ -97,7 +98,7 @@ func change_state(new_state):
 				var direction = home_area.global_position - global_position
 				set_walk_direction(direction)
 		
-	$change_state_timer.wait_time = randi()%5+1
+	$change_state_timer.wait_time = change_state_wait_time
 	$change_state_timer.start()
 
 func state_display_string(state):
@@ -124,6 +125,14 @@ func _on_change_state_timer_timeout():
 		change_state(WALKING)
 	elif state == WALKING:
 		change_state(IDLE)
+	if state == FLEEING:
+		if player:
+			if (player.global_position - global_position).length() < flee_distance:
+				var direction = -(player.global_position - global_position)
+				set_walk_direction(direction)
+				$change_state_timer.start()
+			else:
+				change_state(RETURNING)
 		
 func _on_Update_awareness(new_awareness):
 	if new_awareness == 0:

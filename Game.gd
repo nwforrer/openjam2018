@@ -79,8 +79,8 @@ func _on_Player_spawn_envelope(pos, rot):
 	envelope.rotation = rot
 	envelope.connect('envelope_collision', self, '_on_Envelope_collision')
 	add_child(envelope)
-	
-func _on_Envelope_collision(env, collider):
+
+func citizen_hit(collider):
 	collider.awareness -= 1
 	if collider.awareness <= 0:
 		if collider.money_held:
@@ -91,6 +91,15 @@ func _on_Envelope_collision(env, collider):
 			collider.awareness = awareness
 		else:
 			collider.queue_free()
+
+func spam_filter_hit(collider):
+	collider.queue_free()
+
+func _on_Envelope_collision(env, collider):
+	if PhysicsLayerUtils.obj_on_layer(collider, 'citizen'):
+		citizen_hit(collider)
+	elif PhysicsLayerUtils.obj_on_layer(collider, 'spam_filter'):
+		spam_filter_hit(collider)
 		
 	env.queue_free()
 

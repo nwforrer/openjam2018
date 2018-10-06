@@ -12,11 +12,16 @@ func _ready():
 
 func get_input():
 	look_at(get_global_mouse_position())
-	velocity = Vector2()
+	var move_dir = Vector2()
 	if Input.is_action_pressed('down'):
-		velocity = Vector2(-speed, 0).rotated(rotation)
+		move_dir += Vector2(-1, 0)
 	if Input.is_action_pressed('up'):
-		velocity = Vector2(speed, 0).rotated(rotation)
+		move_dir += Vector2(1, 0)
+	if Input.is_action_pressed('left'):
+		move_dir += Vector2(0, -1)
+	if Input.is_action_pressed('right'):
+		move_dir += Vector2(0, 1)
+	velocity = (move_dir.normalized() * speed).rotated(rotation)
 		
 	if Input.is_action_pressed('primary_action') and $fire_timer.is_stopped():
 		emit_signal('spawn_envelope', $gun_position.global_position, rotation)
