@@ -9,7 +9,6 @@
 
 [node name="Game" type="Node" index="0"]
 
-pause_mode = 2
 script = ExtResource( 1 )
 _sections_unfolded = [ "Pause" ]
 
@@ -36,7 +35,6 @@ _sections_unfolded = [ "Cell", "Z Index" ]
 
 [node name="Entities" type="Node2D" parent="." index="1"]
 
-pause_mode = 1
 _sections_unfolded = [ "Pause" ]
 
 [node name="Player" parent="Entities" index="0" instance=ExtResource( 3 )]

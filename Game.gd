@@ -63,13 +63,10 @@ func update_awareness():
 		awareness_label.text = awareness_label_format % awareness_level
 
 func open_shop():
-	get_tree().paused = true
-	$Camera/Shop.show()
 	$Camera/Shop.open(money)
 
 func close_shop():
-	get_tree().paused = false
-	$Camera/Shop.hide()
+	$Camera/Shop.close()
 
 func _on_Player_spawn_envelope(pos, rot):
 	var envelope = envelope_scene.instance()
@@ -82,9 +79,13 @@ func _on_Envelope_collision(env, collider):
 	collider.awareness -= 1
 	if collider.awareness <= 0:
 		if collider.money_held:
-			money += collider.money_held
-			update_money()
-		collider.queue_free()
+			set_money(money + collider.money_held)
+			
+		if powerups.has(Constants.EXTEND_SCAM):
+			collider.money_held /= 2
+			collider.awareness = awareness
+		else:
+			collider.queue_free()
 		
 	env.queue_free()
 
@@ -113,6 +114,8 @@ func _on_Shop_bought_powerup(powerup, cost):
 	match powerup:
 		Constants.CHANGE_STRAT:
 			set_awareness(awareness / 2)
+		Constants.EXTEND_SCAM:
+			powerups.push_back(Constants.EXTEND_SCAM)
 
 func _on_Shop_close_shop():
 	close_shop()

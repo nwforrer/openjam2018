@@ -25,7 +25,6 @@ func _process(delta):
 			pass
 
 func _physics_process(delta):
-	$ProgressBar.set_rotation(-rotation)
 	move_and_slide(velocity)
 
 func change_state(new_state):
@@ -35,6 +34,8 @@ func change_state(new_state):
 			var direction = Vector2(randf()*2-1, randf()*2-1)
 			look_at(direction + global_position)
 			velocity = direction.normalized() * speed
+			$ProgressBar.set_rotation(-rotation)
+			$ProgressBar.rect_global_position = Vector2(global_position.x - $ProgressBar.rect_size.x/2, global_position.y - 50)
 		IDLE:
 			velocity = Vector2()
 		
