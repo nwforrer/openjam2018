@@ -8,7 +8,9 @@
 custom_solver_bias = 0.0
 extents = Vector2( 12.4734, 21.4991 )
 
-[node name="Citizen" type="KinematicBody2D"]
+[node name="Citizen" type="KinematicBody2D" groups=[
+"citizens",
+]]
 
 input_pickable = false
 collision_layer = 4
@@ -23,6 +25,7 @@ player_path = null
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
 texture = ExtResource( 2 )
+_sections_unfolded = [ "Material" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 

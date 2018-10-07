@@ -13,14 +13,11 @@
    height="297mm"
    viewBox="0 0 210 297"
    version="1.1"
-   id="svg8"
+   id="svg1487"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="envelope.svg"
-   inkscape:export-filename="/home/nforrer/src/game-jams/openjam2018/ui/envelope_icon.png"
-   inkscape:export-xdpi="18.351826"
-   inkscape:export-ydpi="18.351826">
+   sodipodi:docname="laser.svg">
   <defs
-     id="defs2" />
+     id="defs1481" />
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -28,19 +25,19 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="189.62535"
-     inkscape:cy="436.56561"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="205.5108"
+     inkscape:cy="716.35441"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1276"
-     inkscape:window-height="1392"
-     inkscape:window-x="1920"
+     inkscape:window-width="956"
+     inkscape:window-height="1032"
+     inkscape:window-x="960"
      inkscape:window-y="22"
      inkscape:window-maximized="0" />
   <metadata
-     id="metadata5">
+     id="metadata1484">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -55,18 +52,13 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <rect
-       style="opacity:1;fill:#f2f2f2;fill-opacity:1;fill-rule:nonzero;stroke:#b3b3b3;stroke-width:2.89999986;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect815"
-       width="66.282845"
-       height="49.845764"
-       x="20.178848"
-       y="155.34715" />
     <path
-       style="opacity:1;fill:#f2f2f2;fill-opacity:1;fill-rule:nonzero;stroke:#b3b3b3;stroke-width:2.84294295;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 22.116807,155.33599 h 62.358942 l -3.977628,4.6815 -26.688599,19.39478 -27.586776,-19.92981 z"
-       id="rect836"
+       style="opacity:1;fill:#aa0000;fill-opacity:1;fill-rule:nonzero;stroke:#b3b3b3;stroke-width:2.89999986;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 13.363476,42.024868 30.201454,3.741773 0.267269,6.681738 -30.468723,2.672696 z"
+       id="rect2032"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccc" />
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-xdpi="7.3400002"
+       inkscape:export-ydpi="7.3400002" />
   </g>
 </svg>

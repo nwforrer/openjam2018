@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://ui/GUI.gd" type="Script" id=1]
-[ext_resource path="res://ui/label_bg.png" type="Texture" id=2]
-[ext_resource path="res://ui/coins.png" type="Texture" id=3]
-[ext_resource path="res://fonts/Asap/Asap-Regular.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://ui/provider-internet.png" type="Texture" id=5]
+[ext_resource path="res://ui/provider-internet.png" type="Texture" id=2]
+[ext_resource path="res://ui/envelope_icon.png" type="Texture" id=3]
+[ext_resource path="res://ui/label_bg.png" type="Texture" id=4]
+[ext_resource path="res://ui/coins.png" type="Texture" id=5]
+[ext_resource path="res://fonts/Asap/Asap-Regular.ttf" type="DynamicFontData" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -13,7 +14,7 @@ use_mipmaps = false
 use_filter = false
 extra_spacing_top = 10
 extra_spacing_bottom = 18
-font_data = ExtResource( 4 )
+font_data = ExtResource( 6 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
 [node name="GUI" type="MarginContainer"]
@@ -53,20 +54,201 @@ size_flags_vertical = 1
 alignment = 0
 _sections_unfolded = [ "Size Flags" ]
 
-[node name="Counters" type="HBoxContainer" parent="HBoxContainer" index="0"]
+[node name="Bars" type="HBoxContainer" parent="HBoxContainer" index="0"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 242.0
+margin_right = 404.0
 margin_bottom = 60.0
+grow_horizontal = 0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 2
+size_flags_vertical = 0
+alignment = 0
+_sections_unfolded = [ "Grow Direction", "Rect", "Size Flags" ]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Bars" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 200.0
+margin_bottom = 60.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Awareness" type="MarginContainer" parent="HBoxContainer/Bars/HBoxContainer" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 200.0
+margin_bottom = 60.0
+grow_horizontal = 0
+rect_min_size = Vector2( 200, 0 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Anchor", "Grow Direction", "Hint", "Rect", "Size Flags" ]
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer/Bars/HBoxContainer/Awareness" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 58.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 50, 60 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 2
+size_flags_vertical = 1
+texture = ExtResource( 2 )
+stretch_mode = 4
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/Bars/HBoxContainer/Awareness" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 75.0
+margin_top = 17.0
+margin_right = 200.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 125, 25 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 8
+size_flags_vertical = 4
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+percent_visible = true
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/Bars" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 204.0
+margin_right = 404.0
+margin_bottom = 60.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Effectiveness" type="MarginContainer" parent="HBoxContainer/Bars/HBoxContainer2" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 200.0
+margin_bottom = 60.0
+grow_horizontal = 0
+rect_min_size = Vector2( 200, 0 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Anchor", "Grow Direction", "Hint", "Rect", "Size Flags" ]
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer/Bars/HBoxContainer2/Effectiveness" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 58.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 50, 60 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 2
+size_flags_vertical = 1
+texture = ExtResource( 3 )
+stretch_mode = 4
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/Bars/HBoxContainer2/Effectiveness" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 75.0
+margin_top = 17.0
+margin_right = 200.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 125, 25 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 8
+size_flags_vertical = 4
+min_value = 0.0
+max_value = 100.0
+step = 1.0
+page = 0.0
+value = 0.0
+exp_edit = false
+rounded = false
+percent_visible = true
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
+[node name="Counters" type="HBoxContainer" parent="HBoxContainer" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 808.0
+margin_right = 946.0
+margin_bottom = 60.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 0
 size_flags_vertical = 0
 alignment = 0
 _sections_unfolded = [ "Rect", "Size Flags" ]
@@ -103,7 +285,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 2 )
+texture = ExtResource( 4 )
 _sections_unfolded = [ "Rect" ]
 
 [node name="Icon" type="TextureRect" parent="HBoxContainer/Counters/MoneyCount/Background" index="0"]
@@ -122,7 +304,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 stretch_mode = 4
 _sections_unfolded = [ "Rect" ]
 
@@ -143,109 +325,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 1 )
-text = "150000"
-align = 2
-valign = 2
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Anchor", "Rect", "custom_fonts" ]
-
-[node name="Filters" type="HBoxContainer" parent="HBoxContainer" index="1"]
-
-editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 808.0
-margin_right = 946.0
-margin_bottom = 60.0
-grow_horizontal = 0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 0
-alignment = 0
-_sections_unfolded = [ "Grow Direction", "Rect", "Size Flags" ]
-
-[node name="Awareness" type="MarginContainer" parent="HBoxContainer/Filters" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 138.0
-margin_bottom = 60.0
-grow_horizontal = 0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Anchor", "Grow Direction", "Hint", "Rect", "Size Flags" ]
-
-[node name="Background" type="NinePatchRect" parent="HBoxContainer/Filters/Awareness" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 8.0
-margin_right = 138.0
-margin_bottom = 60.0
-grow_horizontal = 0
-rect_min_size = Vector2( 130, 60 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 2 )
-_sections_unfolded = [ "Grow Direction", "Rect", "Size Flags", "Theme" ]
-
-[node name="Icon" type="TextureRect" parent="HBoxContainer/Filters/Awareness/Background" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.5
-anchor_right = 0.0
-anchor_bottom = 0.5
-margin_top = -25.0
-margin_right = 50.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 50, 50 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 5 )
-stretch_mode = 4
-_sections_unfolded = [ "Rect" ]
-
-[node name="Label" type="Label" parent="HBoxContainer/Filters/Awareness/Background" index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 7.0
-margin_top = 3.0
-margin_right = 124.0
-margin_bottom = 57.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = SubResource( 1 )
-text = "150000"
+text = "10"
 align = 2
 valign = 2
 percent_visible = 1.0

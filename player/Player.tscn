@@ -18,7 +18,8 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Collision" ]
 speed = 200
 fire_delay = 0.1
-health = 20
+start_effectiveness = 50
+max_effectiveness = 100
 
 [node name="sprite" type="Sprite" parent="." index="0"]
 

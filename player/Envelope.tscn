@@ -8,7 +8,9 @@
 custom_solver_bias = 0.0
 extents = Vector2( 10, 7.5456 )
 
-[node name="Envelope" type="KinematicBody2D"]
+[node name="Envelope" type="KinematicBody2D" groups=[
+"projectiles",
+]]
 
 input_pickable = false
 collision_layer = 2

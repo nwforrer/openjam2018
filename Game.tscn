@@ -3,16 +3,16 @@
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://environment/TileSet.tres" type="TileSet" id=2]
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://citizen/Citizen.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/Messaging.tscn" type="PackedScene" id=4]
 [ext_resource path="res://ui/GUI.tscn" type="PackedScene" id=5]
-[ext_resource path="res://ui/Shop.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ui/GameOver.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
 radius = 163.617
 
-[node name="Game" type="Node" index="0"]
+[node name="Game" type="Node"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Pause" ]
@@ -58,9 +58,14 @@ position = Vector2( 1142.29, 778.857 )
 
 position = Vector2( -296.988, 769.526 )
 
-[node name="Player" parent="." index="2" instance=ExtResource( 3 )]
+[node name="PlayerStart" type="Position2D" parent="." index="2"]
+
+position = Vector2( 466.823, 283.53 )
+
+[node name="Player" parent="." index="3" instance=ExtResource( 3 )]
 
 position = Vector2( 465.474, 285.026 )
+start_effectiveness = 10
 
 [node name="Camera2D" type="Camera2D" parent="Player" index="4"]
 
@@ -88,9 +93,10 @@ editor_draw_limits = false
 editor_draw_drag_margin = false
 _sections_unfolded = [ "Drag Margin" ]
 
-[node name="CitizenArea" type="Area2D" parent="." index="3"]
+[node name="CitizenAreaContainer" type="Node" parent="." index="4"]
 
-editor/display_folded = true
+[node name="CitizenArea" type="Area2D" parent="CitizenAreaContainer" index="0"]
+
 position = Vector2( 175.942, 126.551 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -103,18 +109,12 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CitizenArea" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CitizenAreaContainer/CitizenArea" index="0"]
 
 shape = SubResource( 1 )
 
-[node name="Citizen" parent="CitizenArea" index="1" instance=ExtResource( 4 )]
+[node name="CitizenArea2" type="Area2D" parent="CitizenAreaContainer" index="1"]
 
-position = Vector2( 29.1128, 76.4526 )
-player_path = NodePath("../../Player")
-
-[node name="CitizenArea2" type="Area2D" parent="." index="4"]
-
-editor/display_folded = true
 position = Vector2( 785.389, 103.425 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -127,18 +127,12 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CitizenArea2" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CitizenAreaContainer/CitizenArea2" index="0"]
 
 shape = SubResource( 1 )
 
-[node name="Citizen2" parent="CitizenArea2" index="1" instance=ExtResource( 4 )]
+[node name="CitizenArea3" type="Area2D" parent="CitizenAreaContainer" index="2"]
 
-position = Vector2( -20.7778, 0.964005 )
-player_path = NodePath("../../Player")
-
-[node name="CitizenArea3" type="Area2D" parent="." index="5"]
-
-editor/display_folded = true
 position = Vector2( 839.804, 481.609 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -151,18 +145,12 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CitizenArea3" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CitizenAreaContainer/CitizenArea3" index="0"]
 
 shape = SubResource( 1 )
 
-[node name="Citizen3" parent="CitizenArea3" index="1" instance=ExtResource( 4 )]
+[node name="CitizenArea4" type="Area2D" parent="CitizenAreaContainer" index="3"]
 
-position = Vector2( -51.9241, 34.9684 )
-player_path = NodePath("../../Player")
-
-[node name="CitizenArea4" type="Area2D" parent="." index="6"]
-
-editor/display_folded = true
 position = Vector2( 269.807, 487.051 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -175,84 +163,40 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CitizenArea4" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CitizenAreaContainer/CitizenArea4" index="0"]
 
 shape = SubResource( 1 )
 
-[node name="Citizen4" parent="CitizenArea4" index="1" instance=ExtResource( 4 )]
-
-position = Vector2( 30.538, -28.0909 )
-player_path = NodePath("../../Player")
-
-[node name="awareness_timer" type="Timer" parent="." index="7"]
+[node name="awareness_timer" type="Timer" parent="." index="5"]
 
 process_mode = 1
-wait_time = 5.0
+wait_time = 10.0
 one_shot = true
 autostart = true
 
-[node name="alert_timer" type="Timer" parent="." index="8"]
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="6"]
 
-process_mode = 1
-wait_time = 5.0
-one_shot = false
-autostart = false
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="9"]
-
+pause_mode = 2
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+_sections_unfolded = [ "Pause" ]
 
-[node name="Messaging" type="VBoxContainer" parent="CanvasLayer" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-alignment = 1
-
-[node name="Label" type="Label" parent="CanvasLayer/Messaging" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 293.0
-margin_right = 1024.0
-margin_bottom = 307.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-text = "test"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+[node name="Messaging" parent="CanvasLayer" index="0" instance=ExtResource( 4 )]
 
 [node name="GUI" parent="CanvasLayer" index="1" instance=ExtResource( 5 )]
 
-margin_right = 40.0
+[node name="GameOver" parent="CanvasLayer" index="2" instance=ExtResource( 6 )]
 
-[node name="Shop" parent="CanvasLayer" index="2" instance=ExtResource( 6 )]
-
-pause_mode = 2
 visible = false
-margin_top = 0.814499
-margin_bottom = 639.815
-_sections_unfolded = [ "Pause" ]
+
+[connection signal="send_alert" from="." to="CanvasLayer/Messaging" method="_on_Game_send_alert"]
+
+[connection signal="update_awareness" from="." to="CanvasLayer/GUI" method="_on_Game_update_awareness"]
+
+[connection signal="update_effectiveness" from="." to="CanvasLayer/GUI" method="_on_Game_update_effectiveness"]
 
 [connection signal="update_money" from="." to="CanvasLayer/GUI" method="_on_Game_update_money"]
 
@@ -260,10 +204,6 @@ _sections_unfolded = [ "Pause" ]
 
 [connection signal="timeout" from="awareness_timer" to="." method="_on_awareness_timer_timeout"]
 
-[connection signal="timeout" from="alert_timer" to="." method="_on_alert_timer_timeout"]
-
-[connection signal="bought_powerup" from="CanvasLayer/Shop" to="." method="_on_Shop_bought_powerup"]
-
-[connection signal="close_shop" from="CanvasLayer/Shop" to="." method="_on_Shop_close_shop"]
+[connection signal="try_again" from="CanvasLayer/GameOver" to="." method="start"]
 
 

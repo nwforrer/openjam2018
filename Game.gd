@@ -2,22 +2,18 @@ extends Node
 
 signal update_money
 signal update_awareness
+signal update_effectiveness
+signal send_alert
 
 var envelope_scene
 var laser_scene
 var spam_filter_scene
+var citizen_scene
 
 var money = 0 setget set_money
 var awareness = 0 setget set_awareness
 
-var money_label
-var awareness_label
-var alert_label
-
 var powerups = []
-
-const money_label_format = "Money: %s"
-const awareness_label_format = "Spam Awareness: %s"
 
 func get_input():
 	if Input.is_action_just_pressed('open_shop'):
@@ -43,7 +39,7 @@ func set_money(new_money):
 func set_awareness(new_aware):
 	var old_bucket = get_awareness_bucket(awareness)
 	var new_bucket = get_awareness_bucket(new_aware)
-	if new_aware > awareness and old_bucket != new_bucket:
+	if new_aware > awareness:
 		var count = 1
 		if new_bucket == 'Medium':
 			count = 2
@@ -52,37 +48,69 @@ func set_awareness(new_aware):
 		spawn_spam_filters(count)
 			
 	awareness = new_aware
-	emit_signal('update_awareness', awareness)
 	update_awareness()
+	
+	if awareness >= 100:
+		game_over()
+	
+func start():
+	$CanvasLayer/GameOver.hide()
+	
+	get_tree().call_group('spam_filters', 'queue_free')
+	get_tree().call_group('projectiles', 'queue_free')
+	get_tree().call_group('citizens', 'queue_free')
+	
+	$Player.reset()
+	$Player.position = $PlayerStart.position
+	
+	money = 0
+	awareness = 0
+	
+	$CanvasLayer/Messaging.reset()
+	
+	$awareness_timer.start()
+	
+	update_money()
+	update_awareness()
+	update_effectiveness(0)
+	
+	spawn_citizens()
+	
+func game_over():
+	get_tree().paused = true
+	$CanvasLayer/GameOver.show()
+	
+func spawn_citizens():
+	var areas = $CitizenAreaContainer.get_children()
+	for area in areas:
+		var citizen = citizen_scene.instance()
+		citizen.player_path = $Player.get_path()
+		area.add_child(citizen)
 
 func _ready():
 	randomize()
-
+	
 	envelope_scene = preload("res://player/Envelope.tscn")
 	spam_filter_scene = preload("res://spam_filter/SpamFilter.tscn")
 	laser_scene = preload("res://spam_filter/Laser.tscn")
+	citizen_scene = preload("res://citizen/Citizen.tscn")
 	
-	#$CanvasLayer/GUI/HealthBar.max_value = $Player.health
-	#$CanvasLayer/GUI/HealthBar.value = $Player.health
-	
-	money_label = find_node("MoneyLabel")
-	awareness_label = find_node("AwarenessLabel")
-	alert_label = find_node("AlertLabel")
-	update_money()
-	update_awareness()
+	start()
 	
 func _process(delta):
 	get_input()
 	
 func update_money():
 	emit_signal('update_money', money)
-	if money_label:
-		money_label.text = money_label_format % money
 	
 func update_awareness():
-	if awareness_label:
-		var awareness_level = get_awareness_bucket(awareness)
-		awareness_label.text = awareness_label_format % awareness_level
+	emit_signal('update_awareness', awareness)
+	
+func update_effectiveness(delta):
+	$Player.effectiveness += delta
+	emit_signal('update_effectiveness', $Player.effectiveness)
+	if $Player.effectiveness <= 0:
+			game_over()
 
 func get_awareness_bucket(aware):
 	var awareness_level
@@ -117,6 +145,7 @@ func _on_SpamFilter_shoot(pos, rot):
 	add_child(laser)
 
 func citizen_hit(collider):
+	update_effectiveness(1)
 	collider.awareness -= 1
 	if collider.awareness <= 0:
 		if collider.money_held:
@@ -144,24 +173,15 @@ func _on_Envelope_collision(env, collider):
 	
 func _on_Laser_collision(laser, collider):
 	if PhysicsLayerUtils.obj_on_layer(collider, 'player'):
-		collider.set_health(collider.health - 1)
-		#$CanvasLayer/GUI/HealthBar.value = collider.health
-		if collider.health <= 0:
-			print('game over')
+		update_effectiveness(-1)
 	laser.queue_free()
 
 func _on_awareness_timer_timeout():
-	#alert_label.text = "Citizens, be aware of spam!"
-	#alert_label.show()
-	#$alert_timer.start()
+	emit_signal('send_alert')
 	
 	set_awareness(awareness + 10)
-	
-	#$awareness_timer.wait_time *= 2
-	#$awareness_timer.start()
+	$awareness_timer.start()
 
-func _on_alert_timer_timeout():
-	alert_label.hide()
 
 func _on_Shop_bought_powerup(powerup, cost):
 	if cost > money:
