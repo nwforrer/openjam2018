@@ -5,6 +5,8 @@ signal spawn_envelope
 export (int) var speed = 200
 export (float) var fire_delay = 0.1
 
+export (int) var health = 20 setget set_health
+
 var velocity = Vector2()
 
 func _ready():
@@ -26,6 +28,9 @@ func get_input():
 	if Input.is_action_pressed('primary_action') and $fire_timer.is_stopped():
 		emit_signal('spawn_envelope', $gun_position.global_position, rotation)
 		$fire_timer.start()
+
+func set_health(new_health):
+	health = new_health
 
 func _physics_process(delta):
 	get_input()

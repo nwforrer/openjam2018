@@ -3,6 +3,9 @@ extends Node
 signal update_awareness
 
 var envelope_scene
+var laser_scene
+var spam_filter_scene
+
 var money = 0 setget set_money
 var awareness = 0 setget set_awareness
 
@@ -22,11 +25,31 @@ func get_input():
 		else:
 			open_shop()
 
+func spawn_spam_filters(count):
+	# increased awareness tier, spawn spam filters
+	var spawn_locations = $spam_filter_spawns.get_children()
+	for loc in spawn_locations:
+		var spam_filter = spam_filter_scene.instance()
+		spam_filter.global_position = loc.global_position
+		spam_filter.target = $Player
+		spam_filter.connect('spawn_filter_shot', self, '_on_SpamFilter_shoot')
+		add_child(spam_filter)
+
 func set_money(new_money):
 	money = new_money
 	update_money()
 	
 func set_awareness(new_aware):
+	var old_bucket = get_awareness_bucket(awareness)
+	var new_bucket = get_awareness_bucket(new_aware)
+	if new_aware > awareness and old_bucket != new_bucket:
+		var count = 1
+		if new_bucket == 'Medium':
+			count = 2
+		elif new_bucket == 'High':
+			count = 3
+		spawn_spam_filters(count)
+			
 	awareness = new_aware
 	emit_signal('update_awareness', awareness)
 	update_awareness()
@@ -36,6 +59,11 @@ func _ready():
 	
 	$Camera.target = $Player
 	envelope_scene = preload("res://player/Envelope.tscn")
+	spam_filter_scene = preload("res://spam_filter/SpamFilter.tscn")
+	laser_scene = preload("res://spam_filter/Laser.tscn")
+	
+	$Camera/GUI/HealthBar.max_value = $Player.health
+	$Camera/GUI/HealthBar.value = $Player.health
 	
 	money_label = find_node("MoneyLabel")
 	awareness_label = find_node("AwarenessLabel")
@@ -52,16 +80,16 @@ func update_money():
 	
 func update_awareness():
 	if awareness_label:
-		var awareness_level = get_awareness_bucket()
+		var awareness_level = get_awareness_bucket(awareness)
 		awareness_label.text = awareness_label_format % awareness_level
 
-func get_awareness_bucket():
+func get_awareness_bucket(aware):
 	var awareness_level
-	if awareness == 0:
+	if aware == 0:
 		awareness_level = 'None'
-	elif awareness > 0 and awareness <= Constants.LOW_AWARENESS_LEVEL:
+	elif aware > 0 and aware <= Constants.LOW_AWARENESS_LEVEL:
 		awareness_level = 'Low'
-	elif awareness <= Constants.MEDIUM_AWARENESS_LEVEL:
+	elif aware <= Constants.MEDIUM_AWARENESS_LEVEL:
 		awareness_level = 'Medium'
 	else:
 		awareness_level = 'High'
@@ -80,6 +108,13 @@ func _on_Player_spawn_envelope(pos, rot):
 	envelope.connect('envelope_collision', self, '_on_Envelope_collision')
 	add_child(envelope)
 
+func _on_SpamFilter_shoot(pos, rot):
+	var laser = laser_scene.instance()
+	laser.position = pos
+	laser.rotation = rot
+	laser.connect('laser_collision', self, '_on_Laser_collision')
+	add_child(laser)
+
 func citizen_hit(collider):
 	collider.awareness -= 1
 	if collider.awareness <= 0:
@@ -97,11 +132,22 @@ func spam_filter_hit(collider):
 
 func _on_Envelope_collision(env, collider):
 	if PhysicsLayerUtils.obj_on_layer(collider, 'citizen'):
-		citizen_hit(collider)
+		if get_tree().get_nodes_in_group('spam_filters').size() > 0:
+			print('still have spam filters')
+		else:
+			citizen_hit(collider)
 	elif PhysicsLayerUtils.obj_on_layer(collider, 'spam_filter'):
 		spam_filter_hit(collider)
 		
 	env.queue_free()
+	
+func _on_Laser_collision(laser, collider):
+	if PhysicsLayerUtils.obj_on_layer(collider, 'player'):
+		collider.set_health(collider.health - 1)
+		$Camera/GUI/HealthBar.value = collider.health
+		if collider.health <= 0:
+			print('game over')
+	laser.queue_free()
 
 func _on_awareness_timer_timeout():
 	alert_label.text = "Citizens, be aware of spam!"

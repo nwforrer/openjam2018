@@ -8,7 +8,9 @@
 custom_solver_bias = 0.0
 extents = Vector2( 14.2087, 21.6168 )
 
-[node name="SpamFilter" type="KinematicBody2D"]
+[node name="SpamFilter" type="KinematicBody2D" groups=[
+"spam_filters",
+]]
 
 input_pickable = false
 collision_layer = 8

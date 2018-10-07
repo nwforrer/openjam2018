@@ -6,11 +6,13 @@ export (int) var money_held = 10
 export (int) var flee_distance = 200
 export (NodePath) var player_path
 
-var show_states = true
+var show_states = false
 
 var player
 var state
-var speed = 100
+var speed
+var walk_speed = 100
+var run_speed = 300
 var awareness = 1
 var total_awareness = 1
 var velocity = Vector2()
@@ -82,16 +84,19 @@ func change_state(new_state):
 	
 	match new_state:
 		WALKING:
+			speed = walk_speed
 			var direction = Vector2(randf()*2-1, randf()*2-1)
 			set_walk_direction(direction)
 		IDLE:
 			velocity = Vector2()
 		FLEEING:
+			speed = run_speed
 			change_state_wait_time = 1
 			if player:
 				var direction = -(player.global_position - global_position)
 				set_walk_direction(direction)
 		RETURNING:
+			speed = walk_speed
 			if not home_area:
 				change_state(IDLE)
 			elif not home_area.overlaps_body(self):
