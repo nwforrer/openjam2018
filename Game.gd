@@ -1,5 +1,6 @@
 extends Node
 
+signal update_money
 signal update_awareness
 
 var envelope_scene
@@ -61,8 +62,8 @@ func _ready():
 	spam_filter_scene = preload("res://spam_filter/SpamFilter.tscn")
 	laser_scene = preload("res://spam_filter/Laser.tscn")
 	
-	$CanvasLayer/GUI/HealthBar.max_value = $Player.health
-	$CanvasLayer/GUI/HealthBar.value = $Player.health
+	#$CanvasLayer/GUI/HealthBar.max_value = $Player.health
+	#$CanvasLayer/GUI/HealthBar.value = $Player.health
 	
 	money_label = find_node("MoneyLabel")
 	awareness_label = find_node("AwarenessLabel")
@@ -74,6 +75,7 @@ func _process(delta):
 	get_input()
 	
 func update_money():
+	emit_signal('update_money', money)
 	if money_label:
 		money_label.text = money_label_format % money
 	
@@ -143,20 +145,20 @@ func _on_Envelope_collision(env, collider):
 func _on_Laser_collision(laser, collider):
 	if PhysicsLayerUtils.obj_on_layer(collider, 'player'):
 		collider.set_health(collider.health - 1)
-		$CanvasLayer/GUI/HealthBar.value = collider.health
+		#$CanvasLayer/GUI/HealthBar.value = collider.health
 		if collider.health <= 0:
 			print('game over')
 	laser.queue_free()
 
 func _on_awareness_timer_timeout():
-	alert_label.text = "Citizens, be aware of spam!"
-	alert_label.show()
-	$alert_timer.start()
+	#alert_label.text = "Citizens, be aware of spam!"
+	#alert_label.show()
+	#$alert_timer.start()
 	
 	set_awareness(awareness + 10)
 	
-	$awareness_timer.wait_time *= 2
-	$awareness_timer.start()
+	#$awareness_timer.wait_time *= 2
+	#$awareness_timer.start()
 
 func _on_alert_timer_timeout():
 	alert_label.hide()

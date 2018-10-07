@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://environment/TileSet.tres" type="TileSet" id=2]
 [ext_resource path="res://player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://citizen/Citizen.tscn" type="PackedScene" id=4]
-[ext_resource path="res://ui/Shop.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/GUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/Shop.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -78,13 +79,14 @@ smoothing_enabled = false
 smoothing_speed = 5.0
 offset_v = 0.0
 offset_h = 0.0
-drag_margin_left = 0.2
-drag_margin_top = 0.2
-drag_margin_right = 0.2
-drag_margin_bottom = 0.2
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
+_sections_unfolded = [ "Drag Margin" ]
 
 [node name="CitizenArea" type="Area2D" parent="." index="3"]
 
@@ -204,13 +206,55 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="Shop" parent="CanvasLayer" index="0" instance=ExtResource( 5 )]
+[node name="Messaging" type="VBoxContainer" parent="CanvasLayer" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/Messaging" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 293.0
+margin_right = 1024.0
+margin_bottom = 307.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+text = "test"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="GUI" parent="CanvasLayer" index="1" instance=ExtResource( 5 )]
+
+margin_right = 40.0
+
+[node name="Shop" parent="CanvasLayer" index="2" instance=ExtResource( 6 )]
 
 pause_mode = 2
 visible = false
 margin_top = 0.814499
 margin_bottom = 639.815
 _sections_unfolded = [ "Pause" ]
+
+[connection signal="update_money" from="." to="CanvasLayer/GUI" method="_on_Game_update_money"]
 
 [connection signal="spawn_envelope" from="Player" to="." method="_on_Player_spawn_envelope"]
 
