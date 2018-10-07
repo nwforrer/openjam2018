@@ -20,7 +20,7 @@ const awareness_label_format = "Spam Awareness: %s"
 
 func get_input():
 	if Input.is_action_just_pressed('open_shop'):
-		if $Camera/Shop.visible:
+		if $CanvasLayer/Shop.visible:
 			close_shop()
 		else:
 			open_shop()
@@ -56,14 +56,13 @@ func set_awareness(new_aware):
 
 func _ready():
 	randomize()
-	
-	$Camera.target = $Player
+
 	envelope_scene = preload("res://player/Envelope.tscn")
 	spam_filter_scene = preload("res://spam_filter/SpamFilter.tscn")
 	laser_scene = preload("res://spam_filter/Laser.tscn")
 	
-	$Camera/GUI/HealthBar.max_value = $Player.health
-	$Camera/GUI/HealthBar.value = $Player.health
+	$CanvasLayer/GUI/HealthBar.max_value = $Player.health
+	$CanvasLayer/GUI/HealthBar.value = $Player.health
 	
 	money_label = find_node("MoneyLabel")
 	awareness_label = find_node("AwarenessLabel")
@@ -96,10 +95,10 @@ func get_awareness_bucket(aware):
 	return awareness_level
 
 func open_shop():
-	$Camera/Shop.open(money)
+	$CanvasLayer/Shop.open(money)
 
 func close_shop():
-	$Camera/Shop.close()
+	$CanvasLayer/Shop.close()
 
 func _on_Player_spawn_envelope(pos, rot):
 	var envelope = envelope_scene.instance()
@@ -144,7 +143,7 @@ func _on_Envelope_collision(env, collider):
 func _on_Laser_collision(laser, collider):
 	if PhysicsLayerUtils.obj_on_layer(collider, 'player'):
 		collider.set_health(collider.health - 1)
-		$Camera/GUI/HealthBar.value = collider.health
+		$CanvasLayer/GUI/HealthBar.value = collider.health
 		if collider.health <= 0:
 			print('game over')
 	laser.queue_free()
