@@ -36,6 +36,7 @@ func get_input():
 	if Input.is_action_pressed('primary_action') and $fire_timer.is_stopped():
 		emit_signal('spawn_envelope', $gun_position.global_position, rotation)
 		$fire_timer.start()
+		$Swoosh.play()
 
 func _physics_process(delta):
 	get_input()

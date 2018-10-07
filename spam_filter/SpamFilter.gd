@@ -56,3 +56,4 @@ func change_state(new_state):
 
 func _on_shoot_timer_timeout():
 	emit_signal('spawn_filter_shot', $muzzle_location.global_position, rotation)
+	$Laser.play()

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/openjam2018.wav-141a74015f4ea0903cf28edc766b3700.sample"
+
+[deps]
+
+source_file="res://audio/openjam2018.wav"
+dest_files=[ "res://.import/openjam2018.wav-141a74015f4ea0903cf28edc766b3700.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

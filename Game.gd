@@ -200,3 +200,6 @@ func _on_Shop_bought_powerup(powerup, cost):
 
 func _on_Shop_close_shop():
 	close_shop()
+
+func _on_Music_finished():
+	$Music.play()
