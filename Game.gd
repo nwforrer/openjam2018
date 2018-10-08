@@ -21,6 +21,9 @@ func get_input():
 			close_shop()
 		else:
 			open_shop()
+			
+	if Input.is_action_just_pressed('pause'):
+		pause()
 
 func spawn_spam_filters(count):
 	# increased awareness tier, spawn spam filters
@@ -55,6 +58,7 @@ func set_awareness(new_aware):
 	
 func start():
 	$CanvasLayer/GameOver.hide()
+	$CanvasLayer/PauseMenu.hide()
 	
 	get_tree().call_group('spam_filters', 'queue_free')
 	get_tree().call_group('projectiles', 'queue_free')
@@ -75,7 +79,11 @@ func start():
 	update_effectiveness(0)
 	
 	spawn_citizens()
-	
+
+func pause():
+	get_tree().paused = true
+	$CanvasLayer/PauseMenu.show()
+
 func game_over():
 	get_tree().paused = true
 	$CanvasLayer/GameOver.show()

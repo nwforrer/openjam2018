@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://environment/TileSet.tres" type="TileSet" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://ui/Messaging.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ui/GUI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/GameOver.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ui/PauseMenu.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -204,6 +205,10 @@ _sections_unfolded = [ "Pause" ]
 
 visible = false
 
+[node name="PauseMenu" parent="CanvasLayer" index="3" instance=ExtResource( 8 )]
+
+visible = false
+
 [connection signal="send_alert" from="." to="CanvasLayer/Messaging" method="_on_Game_send_alert"]
 
 [connection signal="update_awareness" from="." to="CanvasLayer/GUI" method="_on_Game_update_awareness"]
@@ -219,5 +224,7 @@ visible = false
 [connection signal="timeout" from="awareness_timer" to="." method="_on_awareness_timer_timeout"]
 
 [connection signal="try_again" from="CanvasLayer/GameOver" to="." method="start"]
+
+[connection signal="try_again" from="CanvasLayer/PauseMenu" to="." method="start"]
 
 
