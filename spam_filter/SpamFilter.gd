@@ -21,6 +21,8 @@ func _ready():
 		
 	change_state(TRACKING)
 	
+	$shoot_timer.start()
+	
 func _physics_process(delta):
 	match state:
 		TRACKING:
@@ -49,11 +51,11 @@ func change_state(new_state):
 	
 	match new_state:
 		ORBITING:
-			$shoot_timer.start()
 			if target:
 				orbit_angle = atan2(global_position.y - target.global_position.y, global_position.x - target.global_position.x)
 
 
 func _on_shoot_timer_timeout():
+	$shoot_timer.wait_time = randi()%3+1
 	emit_signal('spawn_filter_shot', $muzzle_location.global_position, rotation)
 	$Laser.play()

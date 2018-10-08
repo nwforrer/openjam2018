@@ -8,12 +8,20 @@ export (float) var fire_delay = 0.1
 export (int) var start_effectiveness = 50
 export (int) var max_effectiveness = 100
 
+export (NodePath) var camera_path
+var camera
+
 var effectiveness
 
 var velocity = Vector2()
 
 func _ready():
 	reset()
+	
+	if camera_path:
+		camera = get_node(camera_path)
+	else:
+		print("ERROR: No camera path assigned to Player")
 	
 func reset():
 	effectiveness = start_effectiveness
@@ -41,3 +49,6 @@ func get_input():
 func _physics_process(delta):
 	get_input()
 	move_and_slide(velocity)
+	
+	position.x = clamp(position.x, camera.limit_left, camera.limit_right)
+	position.y = clamp(position.y, camera.limit_top, camera.limit_bottom)

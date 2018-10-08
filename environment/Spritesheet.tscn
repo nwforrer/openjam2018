@@ -57,7 +57,15 @@ _sections_unfolded = [ "Region" ]
 position = Vector2( 134.9, 124.45 )
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 1258, 0, 64, 64 )
+region_rect = Rect2( 814, 222, 64, 64 )
+_sections_unfolded = [ "Region" ]
+
+[node name="spritesheet8" type="Sprite" parent="." index="7"]
+
+position = Vector2( 217.55, 125.4 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 518, 222, 64, 64 )
 _sections_unfolded = [ "Region" ]
 
 

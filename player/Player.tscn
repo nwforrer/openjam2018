@@ -21,6 +21,7 @@ speed = 200
 fire_delay = 0.1
 start_effectiveness = 50
 max_effectiveness = 100
+camera_path = null
 
 [node name="Swoosh" type="AudioStreamPlayer2D" parent="." index="0"]
 

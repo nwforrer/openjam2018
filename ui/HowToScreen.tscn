@@ -130,12 +130,12 @@ custom_fonts/normal_font = SubResource( 5 )
 bbcode_enabled = true
 bbcode_text = "[b][u]Gameplay[/u][/b]
 
-You have been sent by a Nigerian prince! His fortune is held up in an offshore account, which denies access to anyone from his country. Your mission is to find people willing to send money to bribe the officials with, so that your prince can retrieve his fortune. In return, all who have donated will recieve a very nice reward! Collect as much money as you can!
+You have been sent by a Nigerian prince! His fortune is held up in an offshore account, which is charging a fee to release the funds. Your mission is to find people willing to send money to help pay the fee, so that your prince can retrieve his fortune. Collect as much money as you can!
 
-The strategy of the game is to minimize [img]res://ui/provider-internet.png[/img] awareness of your spam emails, while maximizing it's [img]res://ui/envelope_icon.png[/img] effectiveness.
-[img]res://ui/provider-internet.png[/img] awareness of your spam will occur over time. As awareness spreads, people will be more difficult to persuade, and spam filters will be sent out to reduce the effectiveness of your spam! While spam robots are alive, spam will no longer reach the recipients.
+The strategy of the game is to maximize your spam's effectiveness ([img]res://ui/envelope_sm.png[/img]) as awareness ([img]res://ui/provider-internet_sm.png[/img]) of your spam emails increase. A higher awareness ([img]res://ui/provider-internet_sm.png[/img]) will require more spam in order to retrieve money, while a higher effectiveness ([img]res://ui/envelope_sm.png[/img]) will require less spam to retrieve money.
+Awareness ([img]res://ui/provider-internet_sm.png[/img]) of your spam will occur over time. As awareness spreads, people will be more difficult to persuade, and spam filters will be sent out to block your spam! While spam robots are alive, spam will no longer reach the recipients. Kill them in order to continue spamming!
 
-The [img]res://ui/envelope_icon.png[/img] effectiveness of your spam will increase the more users it hits. When a user recieves enough spam, you will receive money!
+The effectiveness ([img]res://ui/envelope_sm.png[/img]) of your spam will increase the more users it hits. When a user recieves enough spam, you will receive money! Once the awareness reaches 100% the game is over and you leave with your money!
 
 [b][u]Controls[/u][/b]
 
@@ -150,12 +150,12 @@ meta_underlined = true
 tab_size = 4
 text = "Gameplay
 
-You have been sent by a Nigerian prince! His fortune is held up in an offshore account, which denies access to anyone from his country. Your mission is to find people willing to send money to bribe the officials with, so that your prince can retrieve his fortune. In return, all who have donated will recieve a very nice reward! Collect as much money as you can!
+You have been sent by a Nigerian prince! His fortune is held up in an offshore account, which is charging a fee to release the funds. Your mission is to find people willing to send money to help pay the fee, so that your prince can retrieve his fortune. Collect as much money as you can!
 
-The strategy of the game is to minimize  awareness of your spam emails, while maximizing it's  effectiveness.
- awareness of your spam will occur over time. As awareness spreads, people will be more difficult to persuade, and spam filters will be sent out to reduce the effectiveness of your spam! While spam robots are alive, spam will no longer reach the recipients.
+The strategy of the game is to maximize your spam's effectiveness () as awareness () of your spam emails increase. A higher awareness () will require more spam in order to retrieve money, while a higher effectiveness () will require less spam to retrieve money.
+Awareness () of your spam will occur over time. As awareness spreads, people will be more difficult to persuade, and spam filters will be sent out to block your spam! While spam robots are alive, spam will no longer reach the recipients. Kill them in order to continue spamming!
 
-The  effectiveness of your spam will increase the more users it hits. When a user recieves enough spam, you will receive money!
+The effectiveness () of your spam will increase the more users it hits. When a user recieves enough spam, you will receive money! Once the awareness reaches 100% the game is over and you leave with your money!
 
 Controls
 

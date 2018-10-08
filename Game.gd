@@ -25,12 +25,6 @@ var awareness = 0 setget set_awareness
 var powerups = []
 
 func get_input():
-	if Input.is_action_just_pressed('open_shop'):
-		if $CanvasLayer/Shop.visible:
-			close_shop()
-		else:
-			open_shop()
-			
 	if Input.is_action_just_pressed('pause'):
 		pause()
 
@@ -52,16 +46,6 @@ func set_money(new_money):
 	update_money()
 	
 func set_awareness(new_aware):
-	var old_bucket = get_awareness_bucket(awareness)
-	var new_bucket = get_awareness_bucket(new_aware)
-	if new_aware > awareness:
-		var count = 1
-		if new_bucket == 'Medium':
-			count = 2
-		elif new_bucket == 'High':
-			count = 3
-		spawn_spam_filters(count)
-			
 	awareness = new_aware
 	update_awareness()
 	
@@ -71,6 +55,10 @@ func set_awareness(new_aware):
 func start():
 	$CanvasLayer/GameOver.hide()
 	$CanvasLayer/PauseMenu.hide()
+	
+	$spam_filter_timer.stop()
+	$spam_filter_timer.wait_time = 10
+	$spam_filter_timer.start()
 	
 	get_tree().call_group('spam_filters', 'queue_free')
 	get_tree().call_group('projectiles', 'queue_free')
@@ -99,30 +87,31 @@ func pause():
 
 func game_over():
 	get_tree().paused = true
-	if $Player.effectiveness <= 0:
-		$CanvasLayer/GameOver.lose()
+	var high_score
+	var high_score_money
+	var high_score_file = File.new()
+	if not high_score_file.file_exists("user://high_score.save"):
+		print('creating high score file')
+		high_score = true
+		high_score_money = money
+		high_score_file.open("user://high_score.save", File.WRITE)
+		high_score_file.store_string(str(money))
+		high_score_file.close()
 	else:
-		var high_score
-		var high_score_money
-		var high_score_file = File.new()
-		if not high_score_file.file_exists("user://high_score.save"):
+		print('high score file exists')
+		high_score_file.open("user://high_score.save", File.READ_WRITE)
+		var line = high_score_file.get_as_text()
+		if money > int(line):
+			print('new high score!')
 			high_score = true
 			high_score_money = money
-			high_score_file.open("user://high_score.save", File.WRITE)
 			high_score_file.store_string(str(money))
-			high_score_file.close()
 		else:
-			high_score_file.open("user://high_score.save", File.READ_WRITE)
-			var line = high_score_file.get_as_text()
-			if money > int(line):
-				high_score = true
-				high_score_money = money
-				high_score_file.store_string(str(money))
-			else:
-				high_score = false
-				high_score_money = int(line)
-			high_score_file.close()
-		$CanvasLayer/GameOver.win(money, high_score, high_score_money)
+			print('did not pass high score')
+			high_score = false
+			high_score_money = int(line)
+		high_score_file.close()
+	$CanvasLayer/GameOver.win(money, high_score, high_score_money)
 	$CanvasLayer/GameOver.show()
 	
 func spawn_citizens():
@@ -162,9 +151,9 @@ func update_awareness():
 	
 func update_effectiveness(delta):
 	$Player.effectiveness += delta
+	if $Player.effectiveness < 5:
+		$Player.effectiveness = 5
 	emit_signal('update_effectiveness', $Player.effectiveness)
-	if $Player.effectiveness <= 0:
-			game_over()
 
 func get_awareness_bucket(aware):
 	var awareness_level
@@ -177,12 +166,6 @@ func get_awareness_bucket(aware):
 	else:
 		awareness_level = 'High'
 	return awareness_level
-
-func open_shop():
-	$CanvasLayer/Shop.open(money)
-
-func close_shop():
-	$CanvasLayer/Shop.close()
 
 func _on_Player_spawn_envelope(pos, rot):
 	var envelope = envelope_scene.instance()
@@ -213,12 +196,20 @@ func citizen_hit(collider):
 		else:
 			collider.queue_free()
 
+func start_spam_filter_timer():
+	if $spam_filter_timer.wait_time > 5:
+		$spam_filter_timer.wait_time -= 1
+	$spam_filter_timer.start()
+
 func spam_filter_hit(collider):
 	collider.queue_free()
 	$Explosion.play()
 	spam_filter_count -= 1
 	if spam_filter_count <= 0:
 		emit_signal('end_defend')
+		
+		if $spam_filter_timer.is_stopped():
+			start_spam_filter_timer()
 
 func _on_Envelope_collision(env, collider):
 	if PhysicsLayerUtils.obj_on_layer(collider, 'citizen'):
@@ -233,42 +224,19 @@ func _on_Envelope_collision(env, collider):
 	
 func _on_Laser_collision(laser, collider):
 	if PhysicsLayerUtils.obj_on_layer(collider, 'player'):
-		update_effectiveness(-awareness / awareness_inc_step)
+		update_effectiveness(-3 - awareness / awareness_inc_step)
 	laser.queue_free()
 
 func _on_awareness_timer_timeout():
-	emit_signal('send_alert')
-	
 	set_awareness(awareness + awareness_inc_step)
 	$awareness_timer.start()
-
-
-func _on_Shop_bought_powerup(powerup, cost):
-	if cost > money:
-		print('too expensive')
-		return
-		
-	set_money(money - cost)
-	
-	close_shop()
-	
-	match powerup:
-		Constants.CHANGE_STRAT:
-			set_awareness(awareness / 2)
-		Constants.EXTEND_SCAM:
-			powerups.push_back(Constants.EXTEND_SCAM)
-
-func _on_Shop_close_shop():
-	close_shop()
 
 func _on_Music_finished():
 	$Music.play()
 
 func _on_citizen_spawn_timer_timeout():
 	spawn_citizens()
-	#var areas = $CitizenAreaContainer.get_children()
-	#if areas:
-	#	for i in range(0, citizen_spawn_count):
-	#		spawn_citizen(areas[randi()%areas.size()])
-	#if citizen_spawn_count < 5:
-	#	citizen_spawn_count += 1
+
+func _on_spam_filter_timer_timeout():
+	emit_signal('send_alert')
+	spawn_spam_filters(1)
