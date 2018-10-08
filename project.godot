@@ -50,5 +50,6 @@ pause=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"",
 
 [rendering]
 
+quality/2d/use_pixel_snap=true
 environment/default_clear_color=Color( 0.143862, 0.14006, 0.261719, 1 )
 environment/default_environment="res://default_env.tres"

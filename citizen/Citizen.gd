@@ -38,7 +38,7 @@ func _process(delta):
 	$Overhead/ProgressBar.value = awareness
 	$Overhead/ProgressBar.max_value = total_awareness
 	
-	check_to_flee()
+	#check_to_flee()
 			
 	match state:
 		IDLE:
@@ -125,6 +125,13 @@ func set_walk_direction(direction):
 	$Overhead.set_rotation(-rotation)
 	$Overhead.rect_global_position = Vector2(global_position.x - $Overhead/ProgressBar.rect_size.x/2, global_position.y - 50)
 
+func update_awareness(new_awareness):
+	if new_awareness == 0:
+		new_awareness = 1
+	var percent = 1.0 if total_awareness == 0 else float(awareness) / total_awareness
+	total_awareness = new_awareness
+	awareness = percent * total_awareness
+	
 func _on_change_state_timer_timeout():
 	if state == IDLE:
 		change_state(WALKING)
@@ -140,8 +147,12 @@ func _on_change_state_timer_timeout():
 				change_state(RETURNING)
 		
 func _on_Update_awareness(new_awareness):
-	if new_awareness == 0:
-		new_awareness = 1
-	var percent = 1.0 if total_awareness == 0 else float(awareness) / total_awareness
-	total_awareness = new_awareness
-	awareness = percent * total_awareness
+	update_awareness(new_awareness)
+	
+func _on_Game_start_defend():
+	$AnimationPlayer.play("defend")
+	
+func _on_Game_end_defend():
+	print('end defend')
+	$AnimationPlayer.stop()
+	$AnimationPlayer.play("start")

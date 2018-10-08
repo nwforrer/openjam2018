@@ -6,6 +6,7 @@
 
 [node name="spritesheet" type="Sprite" parent="." index="0"]
 
+position = Vector2( 41.8001, 38.9501 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 64, 64 )
@@ -13,6 +14,7 @@ _sections_unfolded = [ "Region" ]
 
 [node name="spritesheet2" type="Sprite" parent="." index="1"]
 
+position = Vector2( 130.15, 38.9501 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 296, 0, 64, 64 )
@@ -20,9 +22,42 @@ _sections_unfolded = [ "Region" ]
 
 [node name="spritesheet3" type="Sprite" parent="." index="2"]
 
+position = Vector2( 211.85, 39.9 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 592, 0, 64, 64 )
+_sections_unfolded = [ "Region" ]
+
+[node name="spritesheet4" type="Sprite" parent="." index="3"]
+
+position = Vector2( 299.25, 39.9 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 518, 148, 64, 64 )
+_sections_unfolded = [ "Region" ]
+
+[node name="spritesheet5" type="Sprite" parent="." index="4"]
+
+position = Vector2( 394.251, 39.9 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 148, 64, 64 )
+_sections_unfolded = [ "Region" ]
+
+[node name="spritesheet6" type="Sprite" parent="." index="5"]
+
+position = Vector2( 42.7501, 126.35 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 1184, 0, 64, 64 )
+_sections_unfolded = [ "Region" ]
+
+[node name="spritesheet7" type="Sprite" parent="." index="6"]
+
+position = Vector2( 134.9, 124.45 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 1258, 0, 64, 64 )
 _sections_unfolded = [ "Region" ]
 
 

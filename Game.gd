@@ -5,10 +5,19 @@ signal update_awareness
 signal update_effectiveness
 signal send_alert
 
+signal start_defend
+signal end_defend
+
+export (int) var max_strength = 35
+export (int) var awareness_inc_step = 5
+
 var envelope_scene
 var laser_scene
 var spam_filter_scene
 var citizen_scene
+
+var spam_filter_count = 0
+var citizen_spawn_count = 1
 
 var money = 0 setget set_money
 var awareness = 0 setget set_awareness
@@ -26,6 +35,7 @@ func get_input():
 		pause()
 
 func spawn_spam_filters(count):
+	emit_signal('start_defend')
 	# increased awareness tier, spawn spam filters
 	var spawn_locations = $spam_filter_spawns.get_children()
 	for loc in spawn_locations:
@@ -34,6 +44,8 @@ func spawn_spam_filters(count):
 		spam_filter.target = $Player
 		spam_filter.connect('spawn_filter_shot', self, '_on_SpamFilter_shoot')
 		add_child(spam_filter)
+		
+		spam_filter_count += 1
 
 func set_money(new_money):
 	money = new_money
@@ -91,9 +103,18 @@ func game_over():
 func spawn_citizens():
 	var areas = $CitizenAreaContainer.get_children()
 	for area in areas:
-		var citizen = citizen_scene.instance()
-		citizen.player_path = $Player.get_path()
-		area.add_child(citizen)
+		spawn_citizen(area)
+
+func spawn_citizen(area):
+	var citizen = citizen_scene.instance()
+	citizen.player_path = $Player.get_path()
+	citizen.update_awareness(awareness)
+	connect('start_defend', citizen, '_on_Game_start_defend')
+	connect('end_defend', citizen, '_on_Game_end_defend')
+	
+	if get_tree().get_nodes_in_group('spam_filters').size() > 0:
+		citizen._on_Game_start_defend()
+	area.add_child(citizen)
 
 func _ready():
 	randomize()
@@ -154,9 +175,11 @@ func _on_SpamFilter_shoot(pos, rot):
 
 func citizen_hit(collider):
 	update_effectiveness(1)
-	collider.awareness -= 1
+	var hit_strength = max_strength*$Player.effectiveness/$Player.max_effectiveness
+	collider.awareness -= hit_strength
 	if collider.awareness <= 0:
 		if collider.money_held:
+			$Coin.play()
 			set_money(money + collider.money_held)
 			
 		if powerups.has(Constants.EXTEND_SCAM):
@@ -167,11 +190,15 @@ func citizen_hit(collider):
 
 func spam_filter_hit(collider):
 	collider.queue_free()
+	$Explosion.play()
+	spam_filter_count -= 1
+	if spam_filter_count <= 0:
+		emit_signal('end_defend')
 
 func _on_Envelope_collision(env, collider):
 	if PhysicsLayerUtils.obj_on_layer(collider, 'citizen'):
 		if get_tree().get_nodes_in_group('spam_filters').size() > 0:
-			print('still have spam filters')
+			$Block.play()
 		else:
 			citizen_hit(collider)
 	elif PhysicsLayerUtils.obj_on_layer(collider, 'spam_filter'):
@@ -181,13 +208,13 @@ func _on_Envelope_collision(env, collider):
 	
 func _on_Laser_collision(laser, collider):
 	if PhysicsLayerUtils.obj_on_layer(collider, 'player'):
-		update_effectiveness(-1)
+		update_effectiveness(-awareness / awareness_inc_step)
 	laser.queue_free()
 
 func _on_awareness_timer_timeout():
 	emit_signal('send_alert')
 	
-	set_awareness(awareness + 10)
+	set_awareness(awareness + awareness_inc_step)
 	$awareness_timer.start()
 
 
@@ -211,3 +238,12 @@ func _on_Shop_close_shop():
 
 func _on_Music_finished():
 	$Music.play()
+
+func _on_citizen_spawn_timer_timeout():
+	spawn_citizens()
+	#var areas = $CitizenAreaContainer.get_children()
+	#if areas:
+	#	for i in range(0, citizen_spawn_count):
+	#		spawn_citizen(areas[randi()%areas.size()])
+	#if citizen_spawn_count < 5:
+	#	citizen_spawn_count += 1

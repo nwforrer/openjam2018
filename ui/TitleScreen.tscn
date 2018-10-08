@@ -26,7 +26,7 @@ use_filter = false
 font_data = ExtResource( 8 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="TitleScreen" type="Control" index="0"]
+[node name="TitleScreen" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -88,7 +88,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 1 )
-text = "Spam of the Prince"
+text = "Prince of Spam"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
