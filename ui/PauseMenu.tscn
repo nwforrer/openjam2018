@@ -290,6 +290,7 @@ anchor_bottom = 0.0
 margin_left = 8.0
 margin_right = 1024.0
 margin_bottom = 600.0
+_sections_unfolded = [ "Margin" ]
 
 [connection signal="pressed" from="VBoxContainer/ContinueButton" to="." method="_on_ContinueButton_pressed"]
 
