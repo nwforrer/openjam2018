@@ -9,7 +9,7 @@ signal start_defend
 signal end_defend
 
 export (int) var max_strength = 35
-export (int) var awareness_inc_step = 5
+export (int) var awareness_inc_step = 10
 
 var envelope_scene
 var laser_scene
@@ -150,11 +150,6 @@ func _ready():
 	citizen_scene = preload("res://citizen/Citizen.tscn")
 	
 	start()
-	
-	
-	####### DEBUG
-	awareness = 95
-	money = 1000
 	
 func _process(delta):
 	get_input()

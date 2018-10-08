@@ -17,12 +17,12 @@
 custom_solver_bias = 0.0
 radius = 163.617
 
-[node name="Game" type="Node" index="0"]
+[node name="Game" type="Node"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Pause" ]
 max_strength = 35
-awareness_inc_step = 5
+awareness_inc_step = 10
 
 [node name="Music" type="AudioStreamPlayer" parent="." index="0"]
 
