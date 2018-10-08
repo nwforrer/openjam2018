@@ -10,7 +10,7 @@ config_version=3
 
 [application]
 
-config/name="openjam2018"
+config/name="PrinceOfSpam"
 run/main_scene="res://ui/TitleScreen.tscn"
 config/icon="res://icon.png"
 

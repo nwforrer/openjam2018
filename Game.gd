@@ -81,6 +81,7 @@ func start():
 	
 	money = 0
 	awareness = 0
+	spam_filter_count = 0
 	
 	$CanvasLayer/Messaging.reset()
 	
@@ -98,6 +99,30 @@ func pause():
 
 func game_over():
 	get_tree().paused = true
+	if $Player.effectiveness <= 0:
+		$CanvasLayer/GameOver.lose()
+	else:
+		var high_score
+		var high_score_money
+		var high_score_file = File.new()
+		if not high_score_file.file_exists("user://high_score.save"):
+			high_score = true
+			high_score_money = money
+			high_score_file.open("user://high_score.save", File.WRITE)
+			high_score_file.store_string(str(money))
+			high_score_file.close()
+		else:
+			high_score_file.open("user://high_score.save", File.READ_WRITE)
+			var line = high_score_file.get_as_text()
+			if money > int(line):
+				high_score = true
+				high_score_money = money
+				high_score_file.store_string(str(money))
+			else:
+				high_score = false
+				high_score_money = int(line)
+			high_score_file.close()
+		$CanvasLayer/GameOver.win(money, high_score, high_score_money)
 	$CanvasLayer/GameOver.show()
 	
 func spawn_citizens():
@@ -125,6 +150,11 @@ func _ready():
 	citizen_scene = preload("res://citizen/Citizen.tscn")
 	
 	start()
+	
+	
+	####### DEBUG
+	awareness = 95
+	money = 1000
 	
 func _process(delta):
 	get_input()
