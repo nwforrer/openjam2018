@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 signal spawn_envelope
 
+enum STATES {IDLE, WALKING}
+
 export (int) var speed = 200
 export (float) var fire_delay = 0.1
 
@@ -10,6 +12,8 @@ export (int) var max_effectiveness = 100
 
 export (NodePath) var camera_path
 var camera
+
+var state
 
 var effectiveness
 
@@ -24,6 +28,8 @@ func _ready():
 		print("ERROR: No camera path assigned to Player")
 	
 func reset():
+	change_state(IDLE)
+	
 	effectiveness = start_effectiveness
 	
 	rotation = 0
@@ -46,9 +52,27 @@ func get_input():
 		$fire_timer.start()
 		$Swoosh.play()
 
+func change_state(new_state):
+	state = new_state
+	match new_state:
+		WALKING:
+			print('start walking')
+			$AnimationPlayer.play("walk")
+		IDLE:
+			print('start idle')
+			$AnimationPlayer.play("stand")
+
 func _physics_process(delta):
 	get_input()
 	move_and_slide(velocity)
 	
 	position.x = clamp(position.x, camera.limit_left, camera.limit_right)
 	position.y = clamp(position.y, camera.limit_top, camera.limit_bottom)
+	
+	match state:
+		IDLE:
+			if velocity.length() != 0:
+				change_state(WALKING)
+		WALKING:
+			if velocity.length() == 0:
+				change_state(IDLE)

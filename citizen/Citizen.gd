@@ -87,15 +87,20 @@ func change_state(new_state):
 			speed = walk_speed
 			var direction = Vector2(randf()*2-1, randf()*2-1)
 			set_walk_direction(direction)
+			
+			$MoveAnimationPlayer.play("walk")
 		IDLE:
 			velocity = Vector2()
+			$MoveAnimationPlayer.play("stand")
 		FLEEING:
+			$MoveAnimationPlayer.play("walk")
 			speed = run_speed
 			change_state_wait_time = 1
 			if player:
 				var direction = -(player.global_position - global_position)
 				set_walk_direction(direction)
 		RETURNING:
+			$MoveAnimationPlayer.play("walk")
 			speed = walk_speed
 			if not home_area:
 				change_state(IDLE)
@@ -150,9 +155,9 @@ func _on_Update_awareness(new_awareness):
 	update_awareness(new_awareness)
 	
 func _on_Game_start_defend():
-	$AnimationPlayer.play("defend")
+	$DefendAnimationPlayer.play("defend")
 	
 func _on_Game_end_defend():
 	print('end defend')
-	$AnimationPlayer.stop()
-	$AnimationPlayer.play("start")
+	$DefendAnimationPlayer.stop()
+	$DefendAnimationPlayer.play("start")

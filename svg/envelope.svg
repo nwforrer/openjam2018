@@ -17,8 +17,8 @@
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="envelope.svg"
    inkscape:export-filename="/home/nforrer/src/game-jams/openjam2018/ui/envelope_sm.png"
-   inkscape:export-xdpi="3.02"
-   inkscape:export-ydpi="3.02">
+   inkscape:export-xdpi="4.23"
+   inkscape:export-ydpi="4.23">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -34,7 +34,7 @@
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="2556"
+     inkscape:window-width="1276"
      inkscape:window-height="1392"
      inkscape:window-x="1920"
      inkscape:window-y="22"
@@ -61,12 +61,18 @@
        width="66.282845"
        height="49.845764"
        x="20.178848"
-       y="155.34715" />
+       y="155.34715"
+       inkscape:export-filename="/home/nforrer/src/game-jams/openjam2018/ui/envelope_sm.png"
+       inkscape:export-xdpi="9.1800003"
+       inkscape:export-ydpi="9.1800003" />
     <path
        style="opacity:1;fill:#f2f2f2;fill-opacity:1;fill-rule:nonzero;stroke:#b3b3b3;stroke-width:2.84294295;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 22.116807,155.33599 h 62.358942 l -3.977628,4.6815 -26.688599,19.39478 -27.586776,-19.92981 z"
        id="rect836"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccc" />
+       sodipodi:nodetypes="cccccc"
+       inkscape:export-filename="/home/nforrer/src/game-jams/openjam2018/ui/envelope_sm.png"
+       inkscape:export-xdpi="9.1800003"
+       inkscape:export-ydpi="9.1800003" />
   </g>
 </svg>

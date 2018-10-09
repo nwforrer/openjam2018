@@ -68,4 +68,12 @@ region_enabled = true
 region_rect = Rect2( 518, 222, 64, 64 )
 _sections_unfolded = [ "Region" ]
 
+[node name="spritesheet9" type="Sprite" parent="." index="8"]
+
+position = Vector2( 301.15, 124.45 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 962, 222, 64, 64 )
+_sections_unfolded = [ "Region" ]
+
 
