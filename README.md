@@ -2,6 +2,8 @@
 
 Created for Open Jam 2018.
 
+![](screens/screen2.png)
+
 ## Gameplay
 
 You have been sent by a Nigerian prince! His fortune is held up in an offshore account, which is charging a fee to release the funds. Your mission is to find people willing to send money to help pay the fee, so that your prince can retrieve his fortune. Collect as much money as you can!
