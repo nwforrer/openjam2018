@@ -6,12 +6,12 @@ Created for Open Jam 2018.
 
 ## Gameplay
 
-You have been sent by a Nigerian prince! His fortune is held up in an offshore account, which is charging a fee to release the funds. Your mission is to find people willing to send money to help pay the fee, so that your prince can retrieve his fortune. Collect as much money as you can!
+You have been sent by a Nigerian prince! His fortune is held up in an offshore account, which is charging a fee to release the funds. Your mission is to find people willing to send money to help pay the fee so that your prince can retrieve his fortune. Collect as much money as you can!
 
-The strategy of the game is to maximize your spam's effectiveness as awareness of your spam emails increase. A higher awareness will require more spam in order to retrieve money, while a higher effectiveness will require less spam to retrieve money.
+The strategy of the game is to maximize your spam's effectiveness as the awareness of your spam emails increase. A higher awareness will require more spam in order to retrieve the money, while higher effectiveness will require less spam to retrieve the money.
 Awareness of your spam will occur over time. As awareness spreads, people will be more difficult to persuade, and spam filters will be sent out to block your spam! While spam robots are alive, spam will no longer reach the recipients. Kill them in order to continue spamming!
 
-The effectiveness of your spam will increase the more users it hits. When a user recieves enough spam, you will receive money! Once the awareness reaches 100% the game is over and you leave with your money!
+The effectiveness of your spam will increase the more users it hits. When a user receives enough spam, you will receive money! Once the awareness reaches 100% the game is over and you leave with your money!
 
 ### Controls
 
